@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "poppins";
+    font-family: Roboto,"poppins";
     background-image: url('https://img.freepik.com/free-photo/earth-planet-sandy-beach_1160-281.jpg?w=740&t=st=1695126130~exp=1695126730~hmac=0483073a96c3ca58bbd1f66fc0af63707231951ffee05f48b7c142e01e7eb3c5');
     background-size: cover;
     background-repeat: no-repeat;
