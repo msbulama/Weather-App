@@ -31,6 +31,9 @@
           <i class="bx bx-search-alt-2"></i>
         </button>
       </div>
+      <div id="loadingIndicator" class="hidden">
+        <p></p>
+      </div>
 
       <div class="weather">
         <div class="main">
@@ -55,9 +58,10 @@
             </div>
           </div>
         </div>
-        
-        <label for="unitToggle">Toggle Units:</label>
-        <input type="checkbox" id="unitToggle" checked />
+        <div style="display: none">
+          <label for="unitToggle">Toggle Units:</label>
+          <input type="checkbox" id="unitToggle" checked />
+        </div>
         <div id="forecast" class="hidden"></div>
       </div>
     </div>

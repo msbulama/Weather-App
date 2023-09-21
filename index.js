@@ -6,6 +6,7 @@ const apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=metric&q=
 const searchBox = document.querySelector('.search input'); 
 const searchBtn = document.querySelector('.search button'); 
 const weatherIcon = document.querySelector('.weather-icon'); 
+const loadingIndicator = document.getElementById('loadingIndicator');
 const forecastDisplay = document.getElementById('forecast');
 const body = document.body;
 let useMetricUnits = true;
@@ -25,24 +26,14 @@ function fetchWeatherForecast(city) {
     forecastDisplay.innerHTML += `<p>${forecast.date}: ${forecast.temperature}°${useMetricUnits ? "C" : "F"}, ${forecast.weather}</p>`;
   });
 }
-//function for changing changing background.
-function setBackgroundBasedOnWeather(condition) {
-  if (condition === "Rain") {
-    body.style.backgroundImage = 'url("Rainy.webp")'; 
-  } else if (condition === "Clear" || condition === "Sunny") {
-    body.style.backgroundImage = 'url("Sunny.webp")'; 
-  } else {
-    
-    body.style.backgroundImage = 'url("https://img.freepik.com/free-photo/earth-planet-sandy-beach_1160-281.jpg?w=740&t=st=1695126130~exp=1695126730~hmac=0483073a96c3ca58bbd1f66fc0af63707231951ffee05f48b7c142e01e7eb3c5")'; // Replace with your default background image URL or path
-  }
-}
 
 // fetch data from the API  
 async function checkWeather(city) { 
   try{
+  loadingIndicator.style.display = 'block';
   const response = await fetch(apiUrl + city + `&appid=${apiKey}`) 
   var data = await response.json() 
- 
+  loadingIndicator.style.display = 'none';
   document.querySelector('.weather').style.display = "flex" 
  
   // display data  
@@ -53,14 +44,21 @@ async function checkWeather(city) {
  
   // change weather icon  
   if(data.weather[0].main == "Clouds"){ 
-    weatherIcon.src = "./icons/clouds.png" 
+    weatherIcon.src = "./icons/clouds.png"
+    body.style.backgroundImage = 'url("Sunny.webp")';
+     
   }else if(data.weather[0].main == "Rain"){ 
     weatherIcon.src = "./icons/rain.png" 
+    body.style.backgroundImage = 'url("Rain.jpg")';
   }else if(data.weather[0].main == "Drizzle"){ 
-    weatherIcon.src = "./icons/drizzle.png" 
+    weatherIcon.src = "./icons/drizzle.png"
+    body.style.backgroundImage = 'url("Rain.jpg")' 
   }else if(data.weather[0].main == "Mist"){ 
-    weatherIcon.src = "./icons/mist.png" 
-  } 
+    weatherIcon.src = "./icons/mist.png"
+    body.style.backgroundImage = 'url("Rainy.webp")';
+  }
+
+
  
 } catch(error){
 
@@ -72,4 +70,5 @@ searchBtn.addEventListener("click", () => {
   const city = searchBox.value;
   checkWeather(city); 
   fetchWeatherForecast(city);
+  
 })
